@@ -31,9 +31,9 @@ abstract class HealthServicesPlatform extends PlatformInterface {
 
   void registerPassiveListener(List<DataType> dataTypes, {required PassiveDataListenerCallback callback});
 
-  void unregisterPassiveListeners();
+  Future<bool> unregisterPassiveListeners();
 
   void registerHeartRateMeasurementClient({required MeasureClientCallback? callback});
 
-  void unregisterHeartRateMeasurementClient();
+  Future<bool> unregisterHeartRateMeasurementClient();
 }

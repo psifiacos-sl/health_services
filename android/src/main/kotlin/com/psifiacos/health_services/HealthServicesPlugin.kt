@@ -173,7 +173,9 @@ class HealthServicesPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       Constants.unregisterPassiveListener -> {
         context?.let {ctx ->
           if(HSManager.getOrCreate(ctx)) {
-            HSManager.unregisterPassiveListeners()
+            HSManager.unregisterPassiveListeners {
+              result.success(it)
+            }
           }
         } ?: run {
           result.error(Constants.missingContext, "No Context", -1)
@@ -191,7 +193,9 @@ class HealthServicesPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       Constants.unregisterHeartRateMeasurementClient -> {
         context?.let { ctx ->
           if(HSManager.getOrCreate(ctx)) {
-            HSManager.unregisterMeasureClientHeartRate()
+            HSManager.unregisterMeasureClientHeartRate {
+              result.success(it)
+            }
           }
         } ?: run {
           result.error(Constants.missingContext, "No Context", -1)

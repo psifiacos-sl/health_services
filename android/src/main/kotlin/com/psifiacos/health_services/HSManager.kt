@@ -153,10 +153,11 @@ object HSManager {
         hsClient?.passiveMonitoringClient?.setPassiveListenerCallback(passiveListenerConfig, passiveListenerCallback)
     }
 
-    fun unregisterPassiveListeners() {
+    fun unregisterPassiveListeners(response: (Boolean) -> Unit) {
         scope.launch {
             logi(TAG, "Unregistering Passive Listeners")
             hsClient?.passiveMonitoringClient?.clearPassiveListenerCallbackAsync()?.await()
+            response(true)
         }
     }
 
@@ -165,10 +166,11 @@ object HSManager {
         hsClient?.measureClient?.registerMeasureCallback(DataType.Companion.HEART_RATE_BPM, heartRateMeasureClientCallback)
     }
 
-    fun unregisterMeasureClientHeartRate() {
+    fun unregisterMeasureClientHeartRate(response: (Boolean) -> Unit) {
         scope.launch {
             logi(TAG, "Unregistering measure client: Heart Rate")
             hsClient?.measureClient?.unregisterMeasureCallbackAsync(DataType.Companion.HEART_RATE_BPM, heartRateMeasureClientCallback)?.await()
+            response(true)
         }
     }
 

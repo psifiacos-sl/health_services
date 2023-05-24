@@ -79,9 +79,10 @@ class MethodChannelHealthServices implements HealthServicesPlatform {
   }
 
   @override
-  void unregisterPassiveListeners() {
+  Future<bool> unregisterPassiveListeners() async {
     passiveDataListenerCallback = null;
-    _methodChannel.invokeMethod(Constants.unregisterPassiveListener);
+    final result = await _methodChannel.invokeMethod(Constants.unregisterPassiveListener);
+    return result ?? false;
   }
 
   @override
@@ -92,8 +93,9 @@ class MethodChannelHealthServices implements HealthServicesPlatform {
   }
 
   @override
-  void unregisterHeartRateMeasurementClient() {
+  Future<bool> unregisterHeartRateMeasurementClient() async {
     heartRateMeasureClient = null;
-    _methodChannel.invokeMethod(Constants.unregisterHeartRateMeasurementClient);
+    final result = await _methodChannel.invokeMethod(Constants.unregisterHeartRateMeasurementClient);
+    return result ?? false;
   }
 }

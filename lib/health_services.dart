@@ -29,8 +29,8 @@ class HealthServices {
     HealthServicesPlatform.instance.registerPassiveListener(dataTypes, callback: callback);
   }
 
-  void unregisterPassiveListeners() {
-    HealthServicesPlatform.instance.unregisterPassiveListeners();
+  Future<bool> unregisterPassiveListeners() async {
+    return await HealthServicesPlatform.instance.unregisterPassiveListeners();
   }
 
   void registerHeartRateMeasurementClient(
@@ -38,7 +38,7 @@ class HealthServices {
     HealthServicesPlatform.instance.registerHeartRateMeasurementClient(callback: callback);
   }
 
-  void unregisterHeartRateMeasurementClient() {
-    HealthServicesPlatform.instance.unregisterHeartRateMeasurementClient();
+  Future<bool> unregisterHeartRateMeasurementClient() async {
+    return await HealthServicesPlatform.instance.unregisterHeartRateMeasurementClient();
   }
 }
