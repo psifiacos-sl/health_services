@@ -134,14 +134,26 @@ object HSManager {
         response: (records: Boolean) -> Unit
     ) {
         hSCycleObserver?.launchRequestPermissions(android.Manifest.permission.BODY_SENSORS) {
-            response(it)
+            if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                hSCycleObserver?.launchRequestPermissions(android.Manifest.permission.BODY_SENSORS) { it2 ->
+                    response(it2)
+                }
+            } else {
+                response(it)
+            }
         }
     }
 
     fun checkBodySensorsPermission(ctx: Context, response: (Boolean) -> Unit) {
         scope.launch {
-            response(ContextCompat.checkSelfPermission(ctx, android.Manifest.permission.BODY_SENSORS) ==
-                    PackageManager.PERMISSION_GRANTED)
+            if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                response(ContextCompat.checkSelfPermission(ctx, android.Manifest.permission.BODY_SENSORS) ==
+                        PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(ctx, android.Manifest.permission.BODY_SENSORS_BACKGROUND) ==
+                        PackageManager.PERMISSION_GRANTED)
+            } else {
+                response(ContextCompat.checkSelfPermission(ctx, android.Manifest.permission.BODY_SENSORS) ==
+                        PackageManager.PERMISSION_GRANTED)
+            }
         }
     }
 

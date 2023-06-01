@@ -98,4 +98,14 @@ class MethodChannelHealthServices implements HealthServicesPlatform {
     final result = await _methodChannel.invokeMethod(Constants.unregisterHeartRateMeasurementClient);
     return result ?? false;
   }
+
+  @override
+  bool isHeartRateMeasurementClientRegistered() {
+    return heartRateMeasureClient != null;
+  }
+
+  @override
+  bool isPassiveListenerRegistered() {
+    return passiveDataListenerCallback != null;
+  }
 }

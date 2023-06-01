@@ -41,4 +41,12 @@ class HealthServices {
   Future<bool> unregisterHeartRateMeasurementClient() async {
     return await HealthServicesPlatform.instance.unregisterHeartRateMeasurementClient();
   }
+
+  bool isHeartRateMeasurementClientRegistered() {
+    return HealthServicesPlatform.instance.isHeartRateMeasurementClientRegistered();
+  }
+
+  bool isPassiveListenerRegistered() {
+    return HealthServicesPlatform.instance.isPassiveListenerRegistered();
+  }
 }
